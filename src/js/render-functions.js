@@ -3,16 +3,20 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const list = document.querySelector(".gallery");
 const loader = document.querySelector('.loader');
+let gallery = new SimpleLightbox('.largeImage', {
+        captionsData: 'alt',
+        captionDelay: 250,
+    });
 
-export function createGallery(images) {    
+export function createGallery(images) {
     const markup = images.map(({
         webformatURL, largeImageURL, tags, likes, views, comments, downloads
-        }) => 
-        `<li class="card">            
+        }) =>
+        `<li class="card">
                 <a href="${largeImageURL}" class="largeImage">
                     <img src="${webformatURL}" class="webFormat" alt="${tags}" />
-                </a>    
-                      
+                </a>
+
                 <div class="container-lable">
                     <div class="label">
                         <h3 class="headrLable">Likes</h3>
@@ -30,15 +34,15 @@ export function createGallery(images) {
                         <h3 class="headrLable">Downloads</h3>
                         <p class="textLable">${downloads}</p>
                     </div>
-                </div>            
+                </div>
         </li>`
-    ).join("");    
+    ).join("");
     list.innerHTML = markup;
 
-    let gallery = new SimpleLightbox('.largeImage', {
-        captionsData: 'alt',
-        captionDelay: 250,
-    });
+    // let gallery = new SimpleLightbox('.largeImage', {
+    //     captionsData: 'alt',
+    //     captionDelay: 250,
+    // });
     gallery.refresh();
 }; //Ця функція повинна приймати масив images, створювати HTML - розмітку для галереї,
 //                          додавати її в контейнер галереї та викликати метод екземпляра SimpleLightbox refresh().Нічого не повертає.
@@ -47,7 +51,7 @@ export function clearGallery() {
     list.innerHTML = "";
 }; // Ця функція нічого не приймає та повинна очищати вміст контейнера галереї. Нічого не повертає
 
-export function showLoader() {    
+export function showLoader() {
     loader.classList.remove("hidden");
 }; // Ця функція нічого не приймає, повинна додавати клас для відображення лоадера. Нічого не повертає.
 

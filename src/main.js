@@ -6,20 +6,21 @@ import getImagesByQuery from "./js/pixabay-api"
 import { createGallery, showLoader, hideLoader, clearGallery } from "./js/render-functions";
 
 const form = document.querySelector(".form");
+const inputText = document.querySelector('input[name="search-text"]');
 
 form.addEventListener("submit", event => {
   event.preventDefault();
-  const inputText = document.querySelector('input[name="search-text"]');  
-  
-  if (inputText.value === " " || inputText.value === "  ") {    
-    event.preventDefault();    
-    return inputText.value = "";      
-  }
-  
+  // const inputText = document.querySelector('input[name="search-text"]');
   const searchText = inputText.value.trim();
+
+  if (inputText.value === "" || inputText.value === " ") {
+    // event.preventDefault();
+    return inputText.value = "";
+  }
+
   clearGallery();
   showLoader();
-  
+
   getImagesByQuery(searchText)
     .then(images => {
       if (images.length <= 0) {
@@ -33,6 +34,6 @@ form.addEventListener("submit", event => {
     })
     .finally(() => {
     hideLoader();
-  })  
-  event.target.reset();  
+  })
+  event.target.reset();
 });
